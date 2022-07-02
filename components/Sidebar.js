@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import logo from '../public/logo.svg'
 import SidebarLink from './SidebarLink'
+import UserBox from './UserBox'
 import {
   HomeIcon,
   HomeIconActive,
@@ -77,12 +78,12 @@ function Sidebar() {
             ))}
           </ul>
         </nav>
-        <button className='hidden xs:flex items-center justify-center font-bold text-lg rounded-full bg-blue-base hover:bg-blue-dark transition-colors duration-300 p-3 shadow-lg xl:w-[85%] xl:px-8 xl:py-3'>
+        <button className='hidden xs:flex items-center justify-center font-bold text-lg rounded-full bg-blue-base hover:bg-blue-dark transition-colors duration-300 ease-out p-3 shadow-lg xl:w-[85%] xl:px-8 xl:py-3'>
           <CreateTweetIcon className='h-7 w-7 xl:hidden' />
           <span className='hidden xl:inline-flex'>Tweet</span>
         </button>
       </div>
-      <div className='hidden xs:block'>userbox</div>
+      <UserBox />
     </div>
   )
 }
