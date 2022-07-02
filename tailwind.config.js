@@ -27,6 +27,9 @@ module.exports = {
           extralight: '#f7f9f9',
         },
       },
+      screens: {
+        'xs': "500px",
+      },
     },
   },
   plugins: [],
