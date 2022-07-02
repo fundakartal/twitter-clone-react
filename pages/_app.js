@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
         <title>Twitter</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='min-h-screen flex max-w-[1265px] mx-auto'>
+      <main className='min-h-screen flex max-w-[1265px] mx-auto pb-3'>
         <Component {...pageProps} />
       </main>
 
