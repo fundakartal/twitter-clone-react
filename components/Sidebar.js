@@ -47,7 +47,7 @@ function Sidebar() {
     setActive(name)
   }
   return (
-    <div className='text-white-base flex flex-col justify-between xxs:xs:px-3 xl:w-[275px] xxs:fixed bg-black min-h-screen'>
+    <div className='text-white-base flex flex-col justify-between xxs:xs:px-3 xl:w-[275px] fixed bg-black min-h-screen'>
       <div className='flex flex-col items-center justify-center xl:items-start'>
         <div className='hidden xxs:xs:flex items-center justify-center w-14 h-14 hoverAnimation '>
           <Image src={logo} width={38} height={38} />
