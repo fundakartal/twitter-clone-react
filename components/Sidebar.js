@@ -78,8 +78,8 @@ function Sidebar() {
             ))}
           </ul>
         </nav>
-        <button className='drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] fixed bottom-20 right-5 xxs:xs:filter-none xxs:xs:static xxs:xs:flex items-center justify-center font-bold text-lg rounded-full bg-blue-base hover:bg-blue-dark transition-colors duration-300 ease-out p-3 shadow-lg xl:w-[85%] xl:px-8 xl:py-3'>
-          <CreateTweetIcon className='h-7 w-7 xl:hidden' />
+        <button className='drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] fixed bottom-20 right-5 xxs:xs:filter-none xxs:xs:static flex gap-4 items-center justify-center font-bold text-lg rounded-full bg-blue-base hover:bg-blue-dark transition-colors duration-300 ease-out p-3 shadow-lg xxs:xl:w-[85%] xl:px-8 xl:py-3'>
+          <CreateTweetIcon className='h-7 w-7 xxs:xl:hidden' />
           <span className='hidden xl:inline-flex'>Tweet</span>
         </button>
       </div>
