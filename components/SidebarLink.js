@@ -12,7 +12,7 @@ const SidebarLink = ({ name, Icon, ActiveIcon, active, onMenuItemClick }) => {
             ${isActive && 'font-bold'}`}
           >
             {isActive ? <ActiveIcon /> : <Icon />}
-            <span className='hidden xl:inline'>{name}</span>
+            <span className='hidden xxs:xl:inline'>{name}</span>
           </div>
         </div>
       </a>

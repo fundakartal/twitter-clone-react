@@ -28,7 +28,8 @@ module.exports = {
         },
       },
       screens: {
-        'xs': "500px",
+        xs: '500px',
+        xxs: { raw: '(min-height: 500px)'},
       },
     },
   },
