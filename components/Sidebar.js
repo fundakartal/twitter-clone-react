@@ -47,13 +47,13 @@ function Sidebar() {
     setActive(name)
   }
   return (
-    <div className='text-white-base flex flex-col justify-between xs:px-3 xl:w-[275px]'>
-      <div>
+    <div className='text-white-base flex flex-col justify-between xs:px-3 xl:w-[275px] fixed bg-black min-h-screen'>
+      <div className='flex flex-col items-center justify-center xl:items-start'>
         <div className='hidden xs:flex items-center justify-center w-14 h-14 hoverAnimation '>
           <Image src={logo} width={38} height={38} />
         </div>
-        <nav className=''>
-          <ul className='flex w-full fixed bottom-0 bg-black justify-around xs:flex-col xs:block xs:static'>
+        <nav>
+          <ul className='flex items-center xl:items-start w-full fixed bottom-0 bg-black justify-around xs:flex-col xs:static'>
             {sidebarLinks.slice(0, 5).map(({ name, icon, activeIcon }) => (
               <SidebarLink
                 key={name}
@@ -65,7 +65,7 @@ function Sidebar() {
               />
             ))}
           </ul>
-          <ul className='hidden xs:block'>
+          <ul className='hidden xs:flex flex-col items-center xl:items-start '>
             {sidebarLinks.slice(6).map(({ name, icon, activeIcon }) => (
               <SidebarLink
                 key={name}
