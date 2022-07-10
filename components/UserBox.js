@@ -7,7 +7,7 @@ export default function UserBox() {
       <UserImg className='w-10 h-10 rounded-full xl:mr-3' />
       <div className='hidden xl:inline leading-5 '>
         <h4 className='font-bold'>funda</h4>
-        <p className='text-gray-dark'>@fundakartal</p>
+        <p className='text-gray-light'>@fundakartal</p>
       </div>
       <DotsHorizontal className='hidden w-5 h-5 xl:inline-flex ml-auto' />
     </div>
