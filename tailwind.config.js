@@ -28,7 +28,7 @@ module.exports = {
         },
       },
       screens: {
-        xs: '500px',
+        sm: '500px',
         xxs: { raw: '(min-height: 500px)'},
       },
     },
