@@ -21,9 +21,9 @@ module.exports = {
         // },
         gray: {
           base: 'rgba(15,20,25,0.2)',
-          dark: 'rgb(83, 100, 113)',
+          dark: 'rgb(47,51,54)',
           // light: '#e7e7e8',
-          light: '#eff3f4',
+          light: 'rgb(113,118,123)',
           extralight: '#f7f9f9',
         },
       },
