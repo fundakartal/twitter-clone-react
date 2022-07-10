@@ -47,13 +47,13 @@ function Sidebar() {
     setActive(name)
   }
   return (
-    <div className='text-white-base flex flex-col justify-between xxs:sm:px-3 xxs:xl:w-[275px] fixed bg-black min-h-screen'>
+    <div className='fixed flex min-h-screen flex-col justify-between bg-black text-white-base xxs:sm:px-3 xxs:xl:w-[275px]'>
       <div className='flex flex-col items-center justify-center xl:items-start'>
-        <div className='hidden xxs:sm:flex items-center justify-center w-14 h-14 hoverAnimation '>
+        <div className='hoverAnimation hidden h-14 w-14 items-center justify-center xxs:sm:flex '>
           <Image src={logo} width={38} height={38} />
         </div>
         <nav>
-          <ul className='flex items-center xl:items-start w-full max-w-[1265px] fixed bottom-0 bg-black justify-around xxs:sm:flex-col xxs:sm:static'>
+          <ul className='fixed bottom-0 flex w-full max-w-[1265px] items-center justify-around bg-black xl:items-start xxs:sm:static xxs:sm:flex-col'>
             {sidebarLinks.slice(0, 5).map(({ name, icon, activeIcon }) => (
               <SidebarLink
                 key={name}
@@ -65,7 +65,7 @@ function Sidebar() {
               />
             ))}
           </ul>
-          <ul className='hidden xxs:sm:flex flex-col items-center xl:items-start '>
+          <ul className='hidden flex-col items-center xl:items-start xxs:sm:flex '>
             {sidebarLinks.slice(6).map(({ name, icon, activeIcon }) => (
               <SidebarLink
                 key={name}
@@ -78,7 +78,7 @@ function Sidebar() {
             ))}
           </ul>
         </nav>
-        <button className='drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] fixed bottom-20 right-5 xxs:sm:filter-none xxs:sm:static flex gap-4 items-center justify-center font-bold text-lg rounded-full bg-blue-base hover:bg-blue-dark transition-colors duration-300 ease-out p-3 shadow-lg xxs:xl:w-[85%] xl:px-8 xl:py-3'>
+        <button className='fixed bottom-20 right-5 flex items-center justify-center gap-4 rounded-full bg-blue-base p-3 text-lg font-bold shadow-lg drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] transition-colors duration-300 ease-out hover:bg-blue-dark xl:px-8 xl:py-3 xxs:sm:static xxs:sm:filter-none xxs:xl:w-[85%]'>
           <CreateTweetIcon className='h-7 w-7 xxs:xl:hidden' />
           <span className='hidden xl:inline-flex'>Tweet</span>
         </button>

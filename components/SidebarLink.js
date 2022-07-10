@@ -2,13 +2,13 @@ const SidebarLink = ({ name, Icon, ActiveIcon, active, onMenuItemClick }) => {
   const isActive = active === name
   return (
     <li
-      className=' group cursor-pointer text-xl mb-2'
+      className=' group mb-2 cursor-pointer text-xl'
       onClick={() => onMenuItemClick(name)}
     >
       <a href={name.toLowerCase()} className='pointer-events-none'>
         <div className='inline-block'>
           <div
-            className={`text-white-base p-3 xl:pr-7 flex items-center justify-center xl:justify-start space-x-4 hoverAnimation
+            className={`hoverAnimation flex items-center justify-center space-x-4 p-3 text-white-base xl:justify-start xl:pr-7
             ${isActive && 'font-bold'}`}
           >
             {isActive ? <ActiveIcon /> : <Icon />}
