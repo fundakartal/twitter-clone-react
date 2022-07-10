@@ -2,7 +2,7 @@ import { DotsHorizontal } from './icons/Icon'
 
 export default function UserBox() {
   return (
-    <div className='hidden xxs:xs:flex items-center justify-center hoverAnimation p-3'>
+    <div className='hidden xxs:sm:flex items-center justify-center hoverAnimation p-3'>
       <img
         src='https://pbs.twimg.com/profile_images/1446165567187132420/8XVo47k1_400x400.jpg'
         alt='Profile image'
