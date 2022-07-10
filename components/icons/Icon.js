@@ -183,7 +183,7 @@ export const CreateTweetIcon = ({ className }) => {
   )
 }
 
-export const latestTweetsIcon = ({ className }) => {
+export const LatestTweetsIcon = ({ className }) => {
   return (
     <Svg className={className}>
       <g>
