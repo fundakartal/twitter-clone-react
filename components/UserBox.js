@@ -1,5 +1,5 @@
-import { DotsHorizontal } from './icons/Icon'
-import UserImg from './UserImg'
+import { DotsHorizontal } from 'icons/Icon'
+import UserImg from 'UserImg'
 
 export default function UserBox() {
   return (

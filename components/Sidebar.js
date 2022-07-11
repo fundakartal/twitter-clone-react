@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import logo from '../public/logo.svg'
-import SidebarLink from './SidebarLink'
-import UserBox from './UserBox'
+import SidebarLink from 'SidebarLink'
+import UserBox from 'UserBox'
 import {
   HomeIcon,
   HomeIconActive,
