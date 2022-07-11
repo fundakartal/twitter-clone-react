@@ -49,7 +49,7 @@ function Sidebar() {
   return (
     <div className='fixed flex min-h-screen flex-col justify-between bg-black text-white-base xxs:sm:px-3 xxs:xl:w-[275px]'>
       <div className='flex flex-col items-center justify-center xl:items-start'>
-        <div className='hoverAnimation hidden h-14 w-14 items-center justify-center xxs:sm:flex '>
+        <div className='hoverAnimationBlue hidden h-14 w-14 items-center justify-center xxs:sm:flex '>
           <Image src={logo} width={38} height={38} />
         </div>
         <nav>
