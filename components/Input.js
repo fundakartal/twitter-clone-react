@@ -9,7 +9,8 @@ import {
 } from 'icons/Icon'
 import { useRef, useState } from 'react'
 import UserImg from 'UserImg'
-
+import dynamic from 'next/dynamic'
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 
 export default function Input() {
   const [input, setInput] = useState('')
@@ -18,6 +19,11 @@ export default function Input() {
   const filePickerRef = useRef(null)
 
   const addImageToPost = () => {}
+
+  const onEmojiClick = (event, emojiObject) => {
+
+    setInput(input + emojiObject.emoji);
+  }
 
   return (
     <div className='hidden space-x-3 overflow-y-scroll border-b border-gray-dark px-4 py-3 xxs:sm:flex'>
@@ -76,6 +82,19 @@ export default function Input() {
             <div className='icon'>
               <LocationIcon className='h-5 w-5' />
             </div>
+            {showEmojis && (
+              <Picker
+                onEmojiClick={onEmojiClick}
+                searchPlaceholder='Search emojis'
+                pickerStyle={{
+                  position: 'absolute',
+                  marginTop: '465px',
+                  marginLeft: -40,
+                  maxWidth: '320px',
+                  borderRadius: '20px',
+                }}
+              />
+            )}
           </div>
         </div>
       </div>
