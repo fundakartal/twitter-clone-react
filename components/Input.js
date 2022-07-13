@@ -11,11 +11,15 @@ import { useRef, useState } from 'react'
 import UserImg from 'UserImg'
 import dynamic from 'next/dynamic'
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
+const ReactGiphySearchbox = dynamic(() => import('react-giphy-searchbox'), {
+  ssr: false,
+})
 
 export default function Input() {
   const [input, setInput] = useState('')
   const [selectedImage, setSelectedImage] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
+  const [showGifs, setShowGifs] = useState(false)
   const filePickerRef = useRef(null)
   const addImageToPost = () => {}
 
@@ -29,7 +33,7 @@ export default function Input() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="What's happening?"
             rows='2'
-            className='peer min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
+            className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
           />
           {selectedImage && (
             <div className='relative'>
@@ -58,13 +62,19 @@ export default function Input() {
                 ref={filePickerRef}
               />
             </div>
-            <div className='icon'>
+            <div className='icon' onClick={() => {
+              setShowGifs(!showGifs)
+              setShowEmojis(false)
+            }}>
               <GIFIcon className='h-5 w-5' />
             </div>
             <div className='icon'>
               <PollIcon className='h-5 w-5' />
             </div>
-            <div className='icon' onClick={() => setShowEmojis(!showEmojis)}>
+            <div className='icon' onClick={() => {
+              setShowEmojis(!showEmojis)
+              setShowGifs(false)
+            }}>
               <EmojiIcon className='h-5 w-5' />
             </div>
             <div className='icon'>
@@ -83,6 +93,22 @@ export default function Input() {
                 }}
                 searchPlaceholder='Search emojis'
               />
+            )}
+            {showGifs && (
+              <div className='absolute mt-[410px] lg:mt-[610px]'>
+                <ReactGiphySearchbox
+                  apiKey={process.env.NEXT_PUBLIC_API_KEY}
+                  masonryConfig={[
+                    { columns: 2, imageWidth: 110, gutter: 5 },
+                    { mq: '700px', columns: 3, imageWidth: 150, gutter: 5 },
+                  ]}
+                  onSelect={(item) => console.log(item)}
+                  poweredByGiphy={false}
+                  searchPlaceholder='&#x1F50E; Search for GIFs'
+                  listWrapperClassName='lg:!h-[500px]'
+                  wrapperClassName='!rounded-2xl !overflow-hidden'
+                />
+              </div>
             )}
           </div>
           <button

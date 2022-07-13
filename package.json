@@ -12,7 +12,8 @@
     "emoji-picker-react": "^3.5.1",
     "next": "12.2.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-giphy-searchbox": "^1.5.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
