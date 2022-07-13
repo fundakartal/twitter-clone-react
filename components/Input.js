@@ -7,7 +7,7 @@ import {
   ScheduleIcon,
   XIcon,
 } from 'icons/Icon'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import UserImg from 'UserImg'
 import dynamic from 'next/dynamic'
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
@@ -23,6 +23,9 @@ export default function Input() {
   const filePickerRef = useRef(null)
   const addImageToPost = () => {}
   const sendPost = () => {}
+  useEffect(() => {
+    selectedImage && setShowGifs(false)
+  }, [selectedImage])
 
   return (
     <div className='hidden space-x-3 overflow-y-scroll border-b border-gray-dark px-4 py-3 xxs:sm:flex'>
