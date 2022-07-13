@@ -14,11 +14,11 @@ const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 
 export default function Input() {
   const [input, setInput] = useState('')
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
   const filePickerRef = useRef(null)
   const addImageToPost = () => {}
-  const onEmojiClick = (event, emojiObject) => {
+  const onEmojiClick = (emojiObject) => {
     setInput(input + emojiObject.emoji)
   }
 
@@ -26,7 +26,7 @@ export default function Input() {
     <div className='hidden space-x-3 overflow-y-scroll border-b border-gray-dark px-4 py-3 xxs:sm:flex'>
       <UserImg className='h-12 w-12 cursor-pointer transition-opacity ease-in-out hover:opacity-90' />
       <div className='w-full focus-within:divide-y focus-within:divide-gray-dark'>
-        <div>
+        <div className={`${selectedImage && 'pb-7'} ${input && 'space-y-2.5'}`}>
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -34,16 +34,16 @@ export default function Input() {
             rows='2'
             className='peer min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
           />
-          {selectedFile && (
+          {selectedImage && (
             <div className='relative'>
               <div
-                onClick={() => setSelectedFile(null)}
+                onClick={() => setSelectedImage(null)}
                 className='absolute top-1 left-1  flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#15181c] bg-opacity-75 hover:bg-[#272c26]'
               >
                 <XIcon className='h-5 w-5' />
               </div>
               <img
-                src={selectedFile}
+                src={selectedImage}
                 alt=''
                 className='max-h-80 rounded-2xl object-contain'
               />
@@ -86,6 +86,12 @@ export default function Input() {
               />
             )}
           </div>
+          <button
+            disabled={!input.trim() && !selectedImage}
+            className='tweetBtn'
+          >
+            Tweet
+          </button>
         </div>
       </div>
     </div>
