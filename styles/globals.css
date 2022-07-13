@@ -16,7 +16,7 @@
     @apply cursor-pointer rounded-full transition duration-200 ease-out hover:bg-blue-base hover:bg-opacity-10 group-hover:bg-blue-base group-hover:bg-opacity-10;
   }
   .icon {
-    @apply hoverAnimationBlue flex h-9 w-9 items-center justify-center;
+    @apply hoverAnimationBlue flex h-9 w-9 items-center justify-center disabled:cursor-default disabled:opacity-50;
   }
   .tweetBtn {
     @apply rounded-full bg-blue-base px-4 py-1.5 font-bold text-white-base shadow-md transition duration-300 ease-out hover:bg-blue-dark disabled:cursor-default disabled:opacity-50;

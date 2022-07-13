@@ -22,6 +22,7 @@ export default function Input() {
   const [showGifs, setShowGifs] = useState(false)
   const filePickerRef = useRef(null)
   const addImageToPost = () => {}
+  const sendPost = () => {}
 
   return (
     <div className='hidden space-x-3 overflow-y-scroll border-b border-gray-dark px-4 py-3 xxs:sm:flex'>
@@ -38,7 +39,10 @@ export default function Input() {
           {selectedImage && (
             <div className='relative'>
               <div
-                onClick={() => setSelectedImage(null)}
+                onClick={() => {
+                  setSelectedImage(null)
+                  setShowGifs(false)
+                }}
                 className='absolute top-1 left-1  flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#15181c] bg-opacity-75 hover:bg-[#272c26]'
               >
                 <XIcon className='h-5 w-5' />
@@ -53,7 +57,11 @@ export default function Input() {
         </div>
         <div className='flex items-center justify-between pt-2.5 text-blue-base'>
           <div className='flex items-center'>
-            <div className='icon' onClick={() => filePickerRef.current.click()}>
+            <button
+              className='icon'
+              disabled={selectedImage}
+              onClick={() => filePickerRef.current.click()}
+            >
               <ImageIcon className='h-5 w-5' />
               <input
                 hidden
@@ -61,31 +69,35 @@ export default function Input() {
                 onChange={addImageToPost}
                 ref={filePickerRef}
               />
-            </div>
-            <div className='icon' onClick={() => {
-              setShowGifs(!showGifs)
-              setShowEmojis(false)
-            }}>
+            </button>
+            <button
+              className='icon'
+              disabled={selectedImage}
+              onClick={() => {
+                setShowGifs(!showGifs)
+                setShowEmojis(false)
+              }}
+            >
               <GIFIcon className='h-5 w-5' />
-            </div>
-            <div className='icon'>
+            </button>
+            <button className='icon' disabled={selectedImage}>
               <PollIcon className='h-5 w-5' />
-            </div>
-            <div className='icon' onClick={() => {
-              setShowEmojis(!showEmojis)
-              setShowGifs(false)
-            }}>
+            </button>
+            <button
+              className='icon'
+              onClick={() => {
+                setShowEmojis(!showEmojis)
+                setShowGifs(false)
+              }}
+            >
               <EmojiIcon className='h-5 w-5' />
-            </div>
-            <div className='icon'>
+            </button>
+            <button className='icon'>
               <ScheduleIcon className='h-5 w-5' />
-            </div>
-            <div className='icon'>
-              <ScheduleIcon className='h-5 w-5' />
-            </div>
-            <div className='icon'>
+            </button>
+            <button className='icon' disabled>
               <LocationIcon className='h-5 w-5' />
-            </div>
+            </button>
             {showEmojis && (
               <Picker
                 onEmojiClick={(e, emojiObject) => {
@@ -102,7 +114,9 @@ export default function Input() {
                     { columns: 2, imageWidth: 110, gutter: 5 },
                     { mq: '700px', columns: 3, imageWidth: 150, gutter: 5 },
                   ]}
-                  onSelect={(item) => console.log(item)}
+                  onSelect={(item) =>
+                    setSelectedImage(item.images.original.url)
+                  }
                   poweredByGiphy={false}
                   searchPlaceholder='&#x1F50E; Search for GIFs'
                   listWrapperClassName='lg:!h-[500px]'
@@ -114,6 +128,7 @@ export default function Input() {
           <button
             disabled={!input.trim() && !selectedImage}
             className='tweetBtn'
+            onClick={sendPost}
           >
             Tweet
           </button>
