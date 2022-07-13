@@ -18,9 +18,6 @@ export default function Input() {
   const [showEmojis, setShowEmojis] = useState(false)
   const filePickerRef = useRef(null)
   const addImageToPost = () => {}
-  const onEmojiClick = (emojiObject) => {
-    setInput(input + emojiObject.emoji)
-  }
 
   return (
     <div className='hidden space-x-3 overflow-y-scroll border-b border-gray-dark px-4 py-3 xxs:sm:flex'>
@@ -81,7 +78,9 @@ export default function Input() {
             </div>
             {showEmojis && (
               <Picker
-                onEmojiClick={onEmojiClick}
+                onEmojiClick={(e, emojiObject) => {
+                  setInput(input + emojiObject.emoji)
+                }}
                 searchPlaceholder='Search emojis'
               />
             )}
