@@ -17,12 +17,9 @@ export default function Input() {
   const [selectedFile, setSelectedFile] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
   const filePickerRef = useRef(null)
-
   const addImageToPost = () => {}
-
   const onEmojiClick = (event, emojiObject) => {
-
-    setInput(input + emojiObject.emoji);
+    setInput(input + emojiObject.emoji)
   }
 
   return (
@@ -86,13 +83,6 @@ export default function Input() {
               <Picker
                 onEmojiClick={onEmojiClick}
                 searchPlaceholder='Search emojis'
-                pickerStyle={{
-                  position: 'absolute',
-                  marginTop: '465px',
-                  marginLeft: -40,
-                  maxWidth: '320px',
-                  borderRadius: '20px',
-                }}
               />
             )}
           </div>
