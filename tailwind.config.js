@@ -29,9 +29,9 @@ module.exports = {
       },
       screens: {
         sm: '500px',
-        xxs: { raw: '(min-height: 500px)'},
+        xxs: { raw: '(min-height: 500px)' },
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 }
