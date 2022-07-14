@@ -1,7 +1,7 @@
-export default function UserImg({ className }) {
+export default function UserImg({ className, src }) {
   return (
     <img
-      src='https://pbs.twimg.com/profile_images/1446165567187132420/8XVo47k1_400x400.jpg'
+      src={src}
       alt='Profile image'
       className={`rounded-full ${className}`}
     />
