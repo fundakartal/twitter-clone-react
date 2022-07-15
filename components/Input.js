@@ -176,7 +176,7 @@ export default function Input() {
               {showGifs && (
                 <div className='absolute mt-[410px] lg:mt-[610px]'>
                   <ReactGiphySearchbox
-                    apiKey={process.env.NEXT_PUBLIC_API_KEY}
+                    apiKey={process.env.NEXT_PUBLIC_GIPHY_API_KEY}
                     masonryConfig={[
                       { columns: 2, imageWidth: 110, gutter: 5 },
                       { mq: '700px', columns: 3, imageWidth: 150, gutter: 5 },
