@@ -55,15 +55,12 @@ export default function Input() {
             })
           }
         )
-      }
-
-      if (selectedImage.includes('giphy')) {
+      } else {
         await updateDoc(doc(db, 'posts', docRef.id), {
           image: selectedImage,
         })
       }
     }
-
     setLoading(false)
     setInput('')
     setSelectedImage(null)
