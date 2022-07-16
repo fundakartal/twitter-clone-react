@@ -12,6 +12,7 @@
     "emoji-picker-react": "^3.5.1",
     "firebase": "^9.9.0",
     "next": "12.2.2",
+    "next-auth": "^4.10.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-giphy-searchbox": "^1.5.4",
