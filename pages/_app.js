@@ -3,7 +3,7 @@ import '../styles/emojiPicker.css'
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps, session }) {
   return (
     <SessionProvider session={session}>
       <Head>
