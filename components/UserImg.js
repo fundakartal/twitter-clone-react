@@ -1,7 +1,10 @@
-export default function UserImg({ className, src }) {
+import { useSession } from 'next-auth/react'
+
+export default function UserImg({ className }) {
+  const { data: session } = useSession()
   return (
     <img
-      src={src}
+      src={session.user.image}
       alt='Profile image'
       className={`rounded-full ${className}`}
     />

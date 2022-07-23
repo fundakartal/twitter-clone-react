@@ -9,7 +9,6 @@ import {
 } from 'icons/Icon'
 import { useEffect, useRef, useState } from 'react'
 import UserImg from 'UserImg'
-import dynamic from 'next/dynamic'
 import {
   addDoc,
   collection,
@@ -19,6 +18,8 @@ import {
 } from 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import dynamic from 'next/dynamic'
+import { useSession } from 'next-auth/react'
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 const ReactGiphySearchbox = dynamic(() => import('react-giphy-searchbox'), {
   ssr: false,
@@ -31,15 +32,16 @@ export default function Input() {
   const [showGifs, setShowGifs] = useState(false)
   const [loading, setLoading] = useState(false)
   const filePickerRef = useRef(null)
+  const { data: session } = useSession()
 
   const sendPost = async () => {
     if (loading) return
     setLoading(true)
     const docRef = await addDoc(collection(db, 'posts'), {
-      // id: session.user.uid,
-      // username: session.user.name,
-      // userImg: session.user.image,
-      // tag: session.user.tag,
+      id: session.user.uid,
+      username: session.user.name,
+      userImg: session.user.image,
+      tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     })
@@ -90,7 +92,6 @@ export default function Input() {
       }`}
     >
       <UserImg
-        src='https://pbs.twimg.com/profile_images/1446165567187132420/8XVo47k1_400x400.jpg'
         className='h-12 w-12 cursor-pointer transition-opacity ease-in-out hover:opacity-90'
       />
       <div className='w-full focus-within:divide-y focus-within:divide-gray-dark'>
