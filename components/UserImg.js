@@ -5,7 +5,7 @@ export default function UserImg({ className }) {
   return (
     <img
       src={session.user.image}
-      alt='Profile image'
+      alt={session.user.name}
       className={`rounded-full ${className}`}
     />
   )
