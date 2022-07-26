@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "emoji-picker-react": "^3.5.1",
@@ -14,6 +15,7 @@
     "moment": "^2.29.4",
     "next": "12.2.2",
     "next-auth": "^4.10.0",
+    "patch-package": "^6.4.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-giphy-searchbox": "^1.5.4",
