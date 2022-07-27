@@ -69,7 +69,7 @@ export default function Post({ id, post, postPage }) {
                 <h4
                   className={`shrink truncate text-[15px] font-bold leading-5 text-white-base hover:underline`}
                 >
-                  {post?.username}
+                  {post?.username.split(' ')[0]}
                 </h4>
                 <span className={`truncate ${!postPage && 'ml-1.5'}`}>
                   @{post?.tag}
@@ -86,7 +86,7 @@ export default function Post({ id, post, postPage }) {
                 </div>
               )}
             </div>
-            <div className='icon group shrink-0'>
+            <div className='icon group'>
               <DotsHorizontal className='h-5 w-5 text-gray-light transition duration-200 ease-out group-hover:text-blue-base' />
             </div>
           </div>
