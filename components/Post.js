@@ -51,8 +51,8 @@ export default function Post({ id, post, postPage }) {
             className='mr-4 h-12 w-12 rounded-full transition-opacity duration-200 ease-in-out hover:opacity-90'
           />
         )}
-        <div className='flex w-full flex-col space-y-2'>
-          <div className={`flex ${!postPage && 'justify-between'}`}>
+        <div className='flex w-full flex-col'>
+          <div className='flex justify-between'>
             {postPage && post && (
               <img
                 src={post?.userImg}
@@ -60,41 +60,73 @@ export default function Post({ id, post, postPage }) {
                 className='mr-4 h-12 w-12 rounded-full transition-opacity duration-200 ease-in-out hover:opacity-90'
               />
             )}
-            <div className='text-gray-light'>
-              <div className='inline-block'>
+            <div className='flex text-gray-light'>
+              <div
+                className={`flex shrink items-baseline truncate ${
+                  postPage && 'flex-col'
+                }`}
+              >
                 <h4
-                  className={`tetx-[15px] font-bold leading-5 text-white-base hover:underline sm:text-base ${
-                    !postPage && 'inline-block'
-                  }`}
+                  className={`shrink truncate text-[15px] font-bold leading-5 text-white-base hover:underline`}
                 >
                   {post?.username}
                 </h4>
-                <span className={`${!postPage && 'ml-1.5'}`}>@{post?.tag}</span>
-              </div>{' '}
-              ·{' '}
-              <span className='hover:underline'>
-                <Moment fromNow ago>
-                  {post?.timestamp?.toDate()}
-                </Moment>
-              </span>
+                <span className={`truncate ${!postPage && 'ml-1.5'}`}>
+                  @{post?.tag}
+                </span>
+              </div>
               {!postPage && (
-                <p className='mt-0.5 text-[15px] text-white-base'>
-                  {post?.text}
-                </p>
+                <div className='shrink-0'>
+                  <span className='mx-1'>·</span>
+                  <span className='hover:underline '>
+                    <Moment fromNow ago>
+                      {post?.timestamp?.toDate()}
+                    </Moment>
+                  </span>
+                </div>
               )}
             </div>
-            <div className='icon group ml-auto flex-shrink-0'>
+            <div className='icon group shrink-0'>
               <DotsHorizontal className='h-5 w-5 text-gray-light transition duration-200 ease-out group-hover:text-blue-base' />
             </div>
           </div>
-          {postPage && (
-            <p className='mt-0.5 text-[15px] text-white-base'>{post?.text}</p>
-          )}
+
+          <p className='pb-3 text-[15px] text-white-base'>{post?.text}</p>
+
           <img
             src={post?.image}
             alt=''
             className='mr-2 max-h-[700px] rounded-2xl object-cover'
           />
+          {postPage && (
+            <div className='divide-y divide-gray-dark border-b border-gray-dark text-gray-light hover:underline'>
+              <div className='py-4'>
+                <Moment format='HH:MM A z · MMMM DD, YYYY'>
+                  {post?.timestamp?.toDate()}
+                </Moment>
+              </div>
+
+              <div className='flex gap-x-5 py-4 text-[14px]'>
+                {reTweets.length > 0 && (
+                  <div className=''>
+                    <span className='font-bold text-white-base'>
+                      {reTweets.length}
+                    </span>{' '}
+                    Retweets
+                  </div>
+                )}
+                {likes.length > 0 && (
+                  <div className=''>
+                    <span className='font-bold text-white-base'>
+                      {likes.length}
+                    </span>{' '}
+                    Likes
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div
             className={`flex w-10/12 justify-between text-gray-light ${
               postPage && 'mx-auto'
