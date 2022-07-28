@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps, session }) {
     <SessionProvider session={session}>
       <RecoilRoot>
         <Head>
-          <title>Twitter</title>
+          <title>Latest Tweets / Twitter</title>
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <main className='mx-auto flex min-h-screen max-w-[1265px] pb-3'>
