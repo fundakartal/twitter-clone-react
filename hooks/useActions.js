@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react'
-import { collection, onSnapshot, setDoc } from 'firebase/firestore'
+import {
+  collection,
+  onSnapshot,
+  setDoc,
+  deleteDoc,
+  doc,
+  query,
+  orderBy,
+} from 'firebase/firestore'
 import { useSession } from 'next-auth/react'
 import { db } from '../firebase'
-import { deleteDoc, doc } from 'firebase/firestore'
 import { useRecoilState } from 'recoil'
 import { modalState, postIdState } from '../atoms/modalAtom'
 
@@ -16,6 +23,17 @@ export default function (id) {
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   const [postId, setPostId] = useRecoilState(postIdState)
 
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, 'posts', id, 'comments'),
+          orderBy('timestamp', 'desc')
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db, id]
+  )
   useEffect(
     () =>
       onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) =>
