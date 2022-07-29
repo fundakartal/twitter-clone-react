@@ -20,19 +20,69 @@ import { db, storage } from '../firebase'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import dynamic from 'next/dynamic'
 import { useSession } from 'next-auth/react'
+import { v4 as uuidv4 } from 'uuid'
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 const ReactGiphySearchbox = dynamic(() => import('react-giphy-searchbox'), {
   ssr: false,
 })
+import { useRouter } from 'next/router'
+import { useRecoilState } from 'recoil'
+import { modalState, postIdState } from '../atoms/modalAtom'
 
-export default function Input() {
+export default function Input({ Modal }) {
   const [input, setInput] = useState('')
   const [selectedImage, setSelectedImage] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
   const [showGifs, setShowGifs] = useState(false)
+  const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
   const filePickerRef = useRef(null)
   const { data: session } = useSession()
+  const router = useRouter()
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const [postId, setPostId] = useRecoilState(postIdState)
+
+  const sendComment = async (e) => {
+    e.preventDefault()
+    if (loading) return
+    setLoading(true)
+    const docRef = await addDoc(collection(db, 'posts', postId, 'comments'), {
+      id: uuidv4(),
+      comment: comment,
+      username: session.user.name,
+      tag: session.user.tag,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
+    })
+
+    if (selectedImage) {
+      if (!selectedImage.includes('giphy')) {
+        const imageRef = ref(
+          storage,
+          `posts/${postId}/comments/${docRef.id}/image`
+        )
+        await uploadString(imageRef, selectedImage, 'data_url').then(
+          async () => {
+            const downloadURL = await getDownloadURL(imageRef)
+            await updateDoc(doc(db, 'posts', postId, 'comments', docRef.id), {
+              image: downloadURL,
+            })
+          }
+        )
+      } else {
+        await updateDoc(doc(db, 'posts', postId, 'comments', docRef.id), {
+          image: selectedImage,
+        })
+      }
+    }
+    setIsOpen(false)
+    setSelectedImage(null)
+    setShowEmojis(false)
+    setShowGifs(false)
+    setComment('')
+    setLoading(false)
+    router.push(`/${postId}`)
+  }
 
   const sendPost = async () => {
     if (loading) return
@@ -87,22 +137,30 @@ export default function Input() {
 
   return (
     <div
-      className={`hidden space-x-3 overflow-y-scroll border-b border-gray-dark px-4 py-3 scrollbar-hide xxs:sm:flex ${
-        loading && 'opacity-60'
-      }`}
+      className={`hidden space-x-3 overflow-y-scroll py-3 scrollbar-hide xxs:sm:flex ${
+        !Modal && 'border-b border-gray-dark px-4'
+      } ${loading && 'opacity-60'}`}
     >
-      <UserImg
-        className='h-12 w-12 cursor-pointer transition-opacity ease-in-out hover:opacity-90'
-      />
+      <UserImg className='h-12 w-12 cursor-pointer transition-opacity ease-in-out hover:opacity-90' />
       <div className='w-full focus-within:divide-y focus-within:divide-gray-dark'>
         <div className={`${selectedImage && 'pb-7'} ${input && 'space-y-2.5'}`}>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="What's happening?"
-            rows='2'
-            className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
-          />
+          {Modal ? (
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder='Tweet your reply'
+              rows='2'
+              className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
+            />
+          ) : (
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="What's happening?"
+              rows='2'
+              className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
+            />
+          )}
           {selectedImage && (
             <div className='relative'>
               <div
@@ -167,15 +225,20 @@ export default function Input() {
                 <LocationIcon className='h-5 w-5' />
               </button>
               {showEmojis && (
-                <Picker
-                  onEmojiClick={(e, emojiObject) => {
-                    setInput(input + emojiObject.emoji)
-                  }}
-                  searchPlaceholder='Search emojis'
-                />
+                <div className={`absolute mt-[382px] ${Modal && selectedImage && '-mt-[75%]'}`}>
+                  <Picker
+                    onEmojiClick={(e, emojiObject) => {
+                      setInput(input + emojiObject.emoji)
+                      setComment(comment + emojiObject.emoji)
+                    }}
+                    searchPlaceholder='Search emojis'
+                  />
+                </div>
               )}
               {showGifs && (
-                <div className='absolute mt-[410px] lg:mt-[610px]'>
+                <div
+                  className={`absolute ${!Modal && 'mt-[410px] lg:mt-[610px]'}`}
+                >
                   <ReactGiphySearchbox
                     apiKey={process.env.NEXT_PUBLIC_GIPHY_API_KEY}
                     masonryConfig={[
@@ -188,18 +251,28 @@ export default function Input() {
                     poweredByGiphy={false}
                     searchPlaceholder='&#x1F50E; Search for GIFs'
                     listWrapperClassName='lg:!h-[500px] !scrollbar-hide'
-                    wrapperClassName='!rounded-2xl !overflow-hidden'
+                    wrapperClassName='!rounded-2xl !overflow-hidden !bg-black'
                   />
                 </div>
               )}
             </div>
-            <button
-              disabled={!input.trim() && !selectedImage}
-              className='tweetBtn'
-              onClick={sendPost}
-            >
-              Tweet
-            </button>
+            {Modal ? (
+              <button
+                disabled={!comment.trim() && !selectedImage}
+                className='tweetBtn'
+                onClick={sendComment}
+              >
+                Reply
+              </button>
+            ) : (
+              <button
+                disabled={!input.trim() && !selectedImage}
+                className='tweetBtn'
+                onClick={sendPost}
+              >
+                Tweet
+              </button>
+            )}
           </div>
         )}
       </div>
