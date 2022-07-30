@@ -30,7 +30,7 @@ export default function Post({ id, post, postPage }) {
 
   return (
     <div
-      className='cursor-pointer border-b border-gray-dark px-4 py-3 transition duration-200 ease-in-out hover:bg-[#080808]'
+      className='cursor-pointer border-b border-gray-dark px-4 pt-3 transition duration-200 ease-in-out hover:bg-[#080808]'
       onClick={() => router.push(`/${id}`)}
     >
       {!postPage && reTweeted && (
@@ -52,7 +52,7 @@ export default function Post({ id, post, postPage }) {
           />
         )}
         <div className='flex w-full flex-col'>
-          <div className='flex justify-between'>
+          <div className={`flex ${!postPage && 'justify-between'}`}>
             {postPage && post && (
               <img
                 src={post?.userImg}
@@ -60,38 +60,40 @@ export default function Post({ id, post, postPage }) {
                 className='mr-4 h-12 w-12 rounded-full transition-opacity duration-200 ease-in-out hover:opacity-90'
               />
             )}
-            <div className='flex text-gray-light'>
-              <div
-                className={`flex shrink items-baseline truncate ${
-                  postPage && 'flex-col'
-                }`}
-              >
-                <h4
-                  className={`shrink truncate text-[15px] font-bold leading-5 text-white-base hover:underline`}
+            <div className={`flex w-full justify-between ${postPage && 'pb-4'}`}>
+              <div className='flex text-gray-light'>
+                <div
+                  className={`flex shrink items-baseline truncate ${
+                    postPage && 'flex-col'
+                  }`}
                 >
-                  {post?.username.split(' ')[0]}
-                </h4>
-                <span className={`truncate ${!postPage && 'ml-1.5'}`}>
-                  @{post?.tag}
-                </span>
-              </div>
-              {!postPage && (
-                <div className='shrink-0'>
-                  <span className='mx-1'>·</span>
-                  <span className='hover:underline '>
-                    <Moment fromNow ago>
-                      {post?.timestamp?.toDate()}
-                    </Moment>
+                  <h4
+                    className={`shrink truncate text-[15px] font-bold leading-5 text-white-base hover:underline`}
+                  >
+                    {post?.username.split(' ')[0]}
+                  </h4>
+                  <span className={`truncate ${!postPage && 'ml-1.5'}`}>
+                    @{post?.tag}
                   </span>
                 </div>
-              )}
-            </div>
-            <div className='icon group'>
-              <DotsHorizontal className='h-5 w-5 text-gray-light transition duration-200 ease-out group-hover:text-blue-base' />
+                {!postPage && (
+                  <div className='shrink-0'>
+                    <span className='mx-1'>·</span>
+                    <span className='hover:underline '>
+                      <Moment fromNow ago>
+                        {post?.timestamp?.toDate()}
+                      </Moment>
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div className='icon group'>
+                <DotsHorizontal className='h-5 w-5 text-gray-light transition duration-200 ease-out group-hover:text-blue-base' />
+              </div>
             </div>
           </div>
 
-          <p className='pb-3 text-[15px] text-white-base'>{post?.text}</p>
+          <p className={`pb-3 text-[15px] text-white-base ${postPage && 'cursor-default'}`}>{post?.text}</p>
 
           <img
             src={post?.image}
@@ -99,14 +101,14 @@ export default function Post({ id, post, postPage }) {
             className='mr-2 max-h-[700px] rounded-2xl object-cover'
           />
           {postPage && (
-            <div className='divide-y divide-gray-dark border-b border-gray-dark text-gray-light hover:underline'>
-              <div className='py-4'>
+            <div className='divide-y divide-gray-dark border-b border-gray-dark text-gray-light'>
+              <div className='py-4 hover:underline'>
                 <Moment format='HH:MM A z · MMMM DD, YYYY'>
                   {post?.timestamp?.toDate()}
                 </Moment>
               </div>
 
-              <div className='flex gap-x-5 py-4 text-[14px]'>
+              <div className='flex gap-x-5 py-4 text-[14px] hover:underline'>
                 {reTweets.length > 0 && (
                   <div className=''>
                     <span className='font-bold text-white-base'>
@@ -129,7 +131,7 @@ export default function Post({ id, post, postPage }) {
 
           <div
             className={`flex w-10/12 justify-between text-gray-light ${
-              postPage && 'mx-auto'
+              postPage && 'mx-auto py-1'
             }`}
           >
             <div
