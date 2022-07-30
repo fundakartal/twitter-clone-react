@@ -60,7 +60,9 @@ export default function Post({ id, post, postPage }) {
                 className='mr-4 h-12 w-12 rounded-full transition-opacity duration-200 ease-in-out hover:opacity-90'
               />
             )}
-            <div className={`flex w-full justify-between ${postPage && 'pb-4'}`}>
+            <div
+              className={`flex w-full justify-between ${postPage && 'pb-4'}`}
+            >
               <div className='flex text-gray-light'>
                 <div
                   className={`flex shrink items-baseline truncate ${
@@ -93,7 +95,13 @@ export default function Post({ id, post, postPage }) {
             </div>
           </div>
 
-          <p className={`pb-3 text-[15px] text-white-base ${postPage && 'cursor-default'}`}>{post?.text}</p>
+          <p
+            className={`pb-3 text-[15px] text-white-base ${
+              postPage && 'cursor-default'
+            }`}
+          >
+            {post?.text}
+          </p>
 
           <img
             src={post?.image}
@@ -107,25 +115,27 @@ export default function Post({ id, post, postPage }) {
                   {post?.timestamp?.toDate()}
                 </Moment>
               </div>
-
-              <div className='flex gap-x-5 py-4 text-[14px] hover:underline'>
-                {reTweets.length > 0 && (
-                  <div className=''>
-                    <span className='font-bold text-white-base'>
-                      {reTweets.length}
-                    </span>{' '}
-                    Retweets
+              {comments.length > 0 ||
+                (likes.length > 0 && (
+                  <div className='flex gap-x-5 py-4 text-[14px] hover:underline'>
+                    {reTweets.length > 0 && (
+                      <div className=''>
+                        <span className='font-bold text-white-base'>
+                          {reTweets.length}
+                        </span>{' '}
+                        Retweets
+                      </div>
+                    )}
+                    {likes.length > 0 && (
+                      <div className=''>
+                        <span className='font-bold text-white-base'>
+                          {likes.length}
+                        </span>{' '}
+                        Likes
+                      </div>
+                    )}
                   </div>
-                )}
-                {likes.length > 0 && (
-                  <div className=''>
-                    <span className='font-bold text-white-base'>
-                      {likes.length}
-                    </span>{' '}
-                    Likes
-                  </div>
-                )}
-              </div>
+                ))}
             </div>
           )}
 
