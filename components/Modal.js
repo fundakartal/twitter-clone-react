@@ -67,7 +67,7 @@ function Modal() {
                     <div>
                       <div className='group inline-block'>
                         <h4 className='inline-block text-[15px] font-bold text-white-base sm:text-base'>
-                          {post?.username}
+                          {post?.username.split(' ')[0]}
                         </h4>
                         <span className='ml-1.5 text-sm sm:text-[15px]'>
                           @{post?.tag}{' '}
