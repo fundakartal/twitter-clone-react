@@ -182,7 +182,7 @@ export default function Post({ id, post, postPage }) {
                 className='group flex items-center space-x-1'
                 onClick={(e) => {
                   e.stopPropagation()
-                  reTweetPost(post)
+                  reTweetPost()
                 }}
               >
                 <div className='icon group-hover:bg-green-500/10'>
