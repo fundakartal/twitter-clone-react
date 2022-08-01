@@ -1,6 +1,7 @@
 import { DotsHorizontal } from 'icons/Icon'
 import UserImg from 'UserImg'
 import { getProviders, signOut, useSession } from 'next-auth/react'
+import Login from 'Login'
 
 export default function UserBox({ providers }) {
   const { data: session } = useSession()
