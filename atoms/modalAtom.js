@@ -5,6 +5,12 @@ export const modalState = atom({
   default: false,
 })
 
+export const inputState = atom({
+  key: 'inputState',
+  default: false,
+})
+
+
 export const postIdState = atom({
   key: 'postIdState',
   default: '',

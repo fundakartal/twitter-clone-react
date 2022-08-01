@@ -4,11 +4,13 @@ import { getProviders, useSession } from 'next-auth/react'
 import Login from 'Login'
 import Modal from 'Modal'
 import { useRecoilState } from 'recoil'
-import { modalState } from '../atoms/modalAtom'
+import { inputState, modalState } from '../atoms/modalAtom'
+import InputModal from 'InputModal'
 
 export default function Home({ providers }) {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const [isInputOpen, setIsInputOpen] = useRecoilState(inputState)
   if (!session) return <Login providers={providers} />
 
   return (
@@ -17,6 +19,7 @@ export default function Home({ providers }) {
       <Feed />
       {/* widgets */}
       {isOpen && <Modal />}
+      {isInputOpen && <InputModal />}
     </>
   )
 }

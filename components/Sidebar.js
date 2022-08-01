@@ -21,6 +21,8 @@ import {
   MoreIcon,
   CreateTweetIcon,
 } from './icons/Icon'
+import { useRecoilState } from 'recoil'
+import { inputState } from '../atoms/modalAtom'
 
 const sidebarLinks = [
   { name: 'Home', icon: HomeIcon, activeIcon: HomeIconActive },
@@ -43,6 +45,8 @@ const sidebarLinks = [
 
 function Sidebar() {
   const [active, setActive] = useState('Home')
+  const [isInputOpen, setIsInputOpen] = useRecoilState(inputState)
+
   const handleMenuItemClick = (name) => {
     setActive(name)
   }
@@ -78,7 +82,13 @@ function Sidebar() {
             ))}
           </ul>
         </nav>
-        <button className='fixed bottom-20 right-5 flex items-center justify-center gap-4 rounded-full bg-blue-base p-3 text-lg font-bold shadow-lg drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] transition-colors duration-300 ease-out hover:bg-blue-dark xl:px-8 xl:py-3 xxs:sm:static xxs:sm:filter-none xxs:xl:w-[85%]'>
+        <button
+          className='fixed bottom-20 right-5 flex items-center justify-center gap-4 rounded-full bg-blue-base p-3 text-lg font-bold shadow-lg drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] transition-colors duration-300 ease-out hover:bg-blue-dark xl:px-8 xl:py-3 xxs:sm:static xxs:sm:filter-none xxs:xl:w-[85%]'
+          onClick={(e) => {
+            e.stopPropagation()
+            setIsInputOpen(true)
+          }}
+        >
           <CreateTweetIcon className='h-7 w-7 xxs:xl:hidden' />
           <span className='hidden xl:inline-flex'>Tweet</span>
         </button>

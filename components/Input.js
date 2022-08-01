@@ -26,9 +26,9 @@ const ReactGiphySearchbox = dynamic(() => import('react-giphy-searchbox'), {
 })
 import { useRouter } from 'next/router'
 import { useRecoilState } from 'recoil'
-import { modalState, postIdState } from '../atoms/modalAtom'
+import { inputState, modalState, postIdState } from '../atoms/modalAtom'
 
-export default function Input({ Modal, postPage, post }) {
+export default function Input({ Modal, InputModal, postPage, post }) {
   const [input, setInput] = useState('')
   const [selectedImage, setSelectedImage] = useState(null)
   const [showEmojis, setShowEmojis] = useState(false)
@@ -40,6 +40,7 @@ export default function Input({ Modal, postPage, post }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   const [postId, setPostId] = useRecoilState(postIdState)
+  const [isInputOpen, setIsInputOpen] = useRecoilState(inputState)
   const iconSetRef = useRef()
   const tweetBtnRef = useRef()
   const replyingToRef = useRef()
@@ -122,11 +123,12 @@ export default function Input({ Modal, postPage, post }) {
         })
       }
     }
-    setLoading(false)
     setInput('')
     setSelectedImage(null)
     setShowEmojis(false)
     setShowGifs(false)
+    setLoading(false)
+    setIsInputOpen(false)
   }
 
   const addImageToPost = (e) => {
@@ -156,7 +158,7 @@ export default function Input({ Modal, postPage, post }) {
       </p>
       <div
         className={`flex space-x-3 overflow-y-scroll py-3 scrollbar-hide ${
-          !Modal && 'hidden border-b border-gray-dark px-4 xxs:sm:flex'
+          !Modal && !InputModal && 'hidden border-b border-gray-dark px-4 xxs:sm:flex'
         } ${loading && 'opacity-60'}`}
       >
         <UserImg className='h-12 w-12 cursor-pointer transition-opacity ease-in-out hover:opacity-90' />
@@ -192,7 +194,7 @@ export default function Input({ Modal, postPage, post }) {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="What's happening?"
                 rows='2'
-                className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none'
+                className={`min-h-[50px] ${InputModal && 'h-28'} w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none`}
               />
             )}
             {postPage && (
@@ -231,7 +233,7 @@ export default function Input({ Modal, postPage, post }) {
               } w-full flex-wrap items-center justify-between gap-3 pt-2.5 text-blue-base`}
               ref={iconSetRef}
             >
-              <div className='-ml-2 flex items-center'>
+              <div className='-ml-2 flex items-center flex-wrap'>
                 <button
                   className='icon'
                   disabled={selectedImage}
