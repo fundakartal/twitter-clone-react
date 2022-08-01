@@ -43,7 +43,7 @@ const sidebarLinks = [
   { name: 'More', icon: MoreIcon, activeIcon: MoreIcon },
 ]
 
-function Sidebar() {
+function Sidebar({ postPage }) {
   const [active, setActive] = useState('Home')
   const [isInputOpen, setIsInputOpen] = useRecoilState(inputState)
 
@@ -83,7 +83,7 @@ function Sidebar() {
           </ul>
         </nav>
         <button
-          className='fixed bottom-20 right-5 flex items-center justify-center gap-4 rounded-full bg-blue-base p-3 text-lg font-bold shadow-lg drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] transition-colors duration-300 ease-out hover:bg-blue-dark xl:px-8 xl:py-3 xxs:sm:static xxs:sm:filter-none xxs:xl:w-[85%]'
+          className={`fixed bottom-20 right-5 flex items-center justify-center gap-4 rounded-full bg-blue-base p-3 text-lg font-bold shadow-lg drop-shadow-[0_0_3px_rgba(255,255,255,0.50)] transition-colors duration-300 ease-out hover:bg-blue-dark xl:px-8 xl:py-3 xxs:sm:static xxs:sm:filter-none xxs:xl:w-[85%] ${postPage && 'hidden sm:flex'}`}
           onClick={(e) => {
             e.stopPropagation()
             setIsInputOpen(true)

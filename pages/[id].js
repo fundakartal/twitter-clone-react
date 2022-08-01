@@ -59,7 +59,7 @@ export default function PostPage({ providers }) {
         </title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Sidebar />
+      <Sidebar postPage />
       <div className='max-w-[600px] flex-grow border-l border-r border-gray-dark text-white-base xxs:sm:ml-[88px] xxs:xl:ml-[275px]'>
         <div className='bg-[rgba(0, 0, 0, 0.65)] sticky top-0  z-50 flex items-center gap-x-4 px-1.5 py-2 text-xl font-semibold text-white-base backdrop-blur-md'>
           <div
