@@ -15,10 +15,11 @@ import { db } from '../firebase'
 import Input from 'Input'
 import Modal from 'Modal'
 import { useRecoilState } from 'recoil'
-import { modalState } from '../atoms/modalAtom'
+import { inputState, modalState } from '../atoms/modalAtom'
 import { getProviders, useSession } from 'next-auth/react'
 import Login from 'Login'
 import Comment from 'Comment'
+import InputModal from 'InputModal'
 
 export default function PostPage({ providers }) {
   const { data: session } = useSession()
@@ -27,6 +28,7 @@ export default function PostPage({ providers }) {
   const [comments, setComments] = useState([])
   const router = useRouter()
   const { id } = router.query
+  const [isInputOpen, setIsInputOpen] = useRecoilState(inputState)
 
   useEffect(
     () =>
@@ -90,6 +92,7 @@ export default function PostPage({ providers }) {
       </div>
       {/* widgets */}
       {isOpen && <Modal />}
+      {isInputOpen && <InputModal />}
     </>
   )
 }
