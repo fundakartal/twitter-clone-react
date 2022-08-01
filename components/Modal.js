@@ -83,7 +83,7 @@ function Modal() {
                     </div>
                   </div>
                   <div className='mt-7 w-full'>
-                    <Input Modal />
+                    <Input Modal post={post} />
                   </div>
                 </div>
               </div>

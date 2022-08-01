@@ -30,7 +30,9 @@ export default function Post({ id, post, postPage }) {
 
   return (
     <div
-      className='cursor-pointer border-b border-gray-dark px-4 pt-3 transition duration-200 ease-in-out hover:bg-[#080808]'
+      className={`cursor-pointer ${
+        !postPage && 'border-b border-gray-dark'
+      } px-4 pt-3 transition duration-200 ease-in-out hover:bg-[#080808]`}
       onClick={() => router.push(`/${id}`)}
     >
       {!postPage && reTweeted && (
@@ -96,9 +98,9 @@ export default function Post({ id, post, postPage }) {
           </div>
 
           <p
-            className={`pb-3 text-[15px] text-white-base ${
-              postPage && 'cursor-default'
-            }`}
+            className={`${!postPage && '-mt-2'} ${
+              !post?.image && '-mb-2'
+            } pb-3 text-[15px] text-white-base ${postPage && 'cursor-default mt-1'}`}
           >
             {post?.text}
           </p>
@@ -115,33 +117,34 @@ export default function Post({ id, post, postPage }) {
                   {post?.timestamp?.toDate()}
                 </Moment>
               </div>
-              {comments.length > 0 ||
-                (likes.length > 0 && (
-                  <div className='flex gap-x-5 py-4 text-[14px] hover:underline'>
-                    {reTweets.length > 0 && (
-                      <div className=''>
-                        <span className='font-bold text-white-base'>
-                          {reTweets.length}
-                        </span>{' '}
-                        Retweets
-                      </div>
-                    )}
-                    {likes.length > 0 && (
-                      <div className=''>
-                        <span className='font-bold text-white-base'>
-                          {likes.length}
-                        </span>{' '}
-                        Likes
-                      </div>
-                    )}
+              <div
+                className={`flex gap-x-5 py-4 text-[14px] hover:underline ${
+                  !reTweets.length && !likes.length && 'hidden'
+                }`}
+              >
+                {reTweets.length > 0 && (
+                  <div className=''>
+                    <span className='font-bold text-white-base'>
+                      {reTweets.length}
+                    </span>{' '}
+                    Retweets
                   </div>
-                ))}
+                )}
+                {likes.length > 0 && (
+                  <div className=''>
+                    <span className='font-bold text-white-base'>
+                      {likes.length}
+                    </span>{' '}
+                    Likes
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
           <div
-            className={`flex w-10/12 justify-between text-gray-light ${
-              postPage && 'mx-auto py-1'
+            className={`-ml-2 flex w-10/12 justify-between py-2 text-gray-light ${
+              postPage && 'mx-auto'
             }`}
           >
             <div
