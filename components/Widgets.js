@@ -1,5 +1,6 @@
 import { SearchIcon, XIcon } from 'icons/Icon'
 import { useRef, useState } from 'react'
+import Trending from 'Trending'
 
 export default function Widgets({ trendingResults, followResults }) {
   const [value, setValue] = useState('')
@@ -18,8 +19,8 @@ export default function Widgets({ trendingResults, followResults }) {
   }
 
   return (
-    <aside className='ml-8 hidden space-y-5 py-1 lg:inline lg:w-[290px] xl:w-[350px]'>
-      <div className='sticky top-0 z-50 bg-black py-1.5'>
+    <aside className='ml-8 hidden space-y-5 py-1.5 lg:inline lg:w-[290px] xl:w-[350px]'>
+      <div className='sticky top-0 z-50 bg-black'>
         <div className='relative flex items-center rounded-full bg-gray-base p-3'>
           <SearchIcon className='z-50 h-5 text-gray-light' />
           <input
@@ -45,7 +46,7 @@ export default function Widgets({ trendingResults, followResults }) {
           className='search-shadow z-10 mx-auto hidden min-h-[100px] rounded-lg text-center text-gray-light lg:w-[290px] xl:w-[350px]'
         >
           {value !== '' ? (
-            <div className='flex h-20 w-full cursor-pointer items-center px-6 text-white-base hover:bg-[#16181C]'>
+            <div className='flex h-20 w-full cursor-pointer items-center px-6 text-white-base transition duration-300 ease-out hover:bg-gray-primary'>
               <div className='flex h-14 w-14 items-center'>
                 <SearchIcon className='h-7' />
               </div>
@@ -57,6 +58,15 @@ export default function Widgets({ trendingResults, followResults }) {
             </p>
           )}
         </div>
+      </div>
+      <div className='overflow-hidden rounded-xl bg-gray-primary text-white-base lg:w-[290px] xl:w-[350px]'>
+        <h4 className='px-4 py-3 text-xl font-bold'>What's happening</h4>
+        {trendingResults.map((result, index) => (
+          <Trending key={index} result={result} />
+        ))}
+        <button className='text-[15px] h-12 w-full px-4 text-left text-blue-base transition duration-300 ease-out hover:bg-white-base hover:bg-opacity-[0.03]'>
+          Show more
+        </button>
       </div>
     </aside>
   )
