@@ -91,7 +91,7 @@ export default function Post({ id, post, postPage }) {
                   </div>
                 )}
               </div>
-              <div className='icon group'>
+              <div className='icon group -mt-1'>
                 <DotsHorizontal className='h-5 w-5 text-gray-light transition duration-200 ease-out group-hover:text-blue-base' />
               </div>
             </div>

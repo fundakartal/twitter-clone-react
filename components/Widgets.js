@@ -60,7 +60,7 @@ export default function Widgets({ trendingResults, followResults }) {
         </div>
       </div>
       <div className='overflow-hidden rounded-xl bg-gray-primary text-white-base lg:w-[290px] xl:w-[350px]'>
-        <h4 className='px-4 py-3 text-xl font-bold'>What's happening</h4>
+        <h4 className='px-4 py-3 text-xl font-bold'>What&apos;s happening</h4>
         {trendingResults.map((result, index) => (
           <Trending key={index} result={result} />
         ))}
