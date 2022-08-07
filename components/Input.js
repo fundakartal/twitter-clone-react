@@ -137,8 +137,16 @@ export default function Input({ Modal, InputModal, postPage, post }) {
       reader.readAsDataURL(e.target.files[0])
     }
 
-    reader.onload = (readerEvent) => {
-      setSelectedImage(readerEvent.target.result)
+    if (
+      e.target.files[0] &&
+      e.target.files[0].type.includes('image') && 
+      e.target.files[0].size < 5 * 1024 * 1024
+    ) {
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result)
+      }
+    } else {
+      alert('Please select an image less than 5mb')
     }
   }
 
@@ -158,7 +166,9 @@ export default function Input({ Modal, InputModal, postPage, post }) {
       </p>
       <div
         className={`flex space-x-3 overflow-y-scroll py-3 scrollbar-hide ${
-          !Modal && !InputModal && 'hidden border-b border-gray-dark px-4 xxs:sm:flex'
+          !Modal &&
+          !InputModal &&
+          'hidden border-b border-gray-dark px-4 xxs:sm:flex'
         } ${loading && 'opacity-60'}`}
       >
         <UserImg className='h-12 w-12 cursor-pointer transition-opacity ease-in-out hover:opacity-90' />
@@ -194,7 +204,9 @@ export default function Input({ Modal, InputModal, postPage, post }) {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="What's happening?"
                 rows='2'
-                className={`min-h-[50px] ${InputModal && 'h-28'} w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none`}
+                className={`min-h-[50px] ${
+                  InputModal && 'h-28'
+                } w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none`}
               />
             )}
             {postPage && (
@@ -233,7 +245,7 @@ export default function Input({ Modal, InputModal, postPage, post }) {
               } w-full flex-wrap items-center justify-between gap-3 pt-2.5 text-blue-base`}
               ref={iconSetRef}
             >
-              <div className='-ml-2 flex items-center flex-wrap'>
+              <div className='-ml-2 flex flex-wrap items-center'>
                 <button
                   className='icon'
                   disabled={selectedImage}
@@ -243,6 +255,7 @@ export default function Input({ Modal, InputModal, postPage, post }) {
                   <input
                     hidden
                     type='file'
+                    accept='image/*'
                     onChange={addImageToPost}
                     ref={filePickerRef}
                   />
