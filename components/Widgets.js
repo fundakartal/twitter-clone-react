@@ -23,8 +23,8 @@ export default function Widgets({ trendingResults, followResults }) {
         <div className='relative flex items-center rounded-full bg-gray-base p-3'>
           <SearchIcon className='z-50 h-5 text-gray-light' />
           <input
-            onFocus={searchModal.current.classList.remove('hidden')}
-            onBlur={searchModal.current.classList.add('hidden')}
+            onFocus={() => searchModal.current.classList.remove('hidden')}
+            onBlur={() => searchModal.current.classList.add('hidden')}
             onChange={handleInput}
             type='text'
             value={value}
