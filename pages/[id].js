@@ -20,8 +20,13 @@ import { getProviders, useSession } from 'next-auth/react'
 import Login from 'Login'
 import Comment from 'Comment'
 import InputModal from 'InputModal'
+import Widgets from 'Widgets'
 
-export default function PostPage({ providers }) {
+export default function PostPage({
+  providers,
+  trendingResults,
+  followResults,
+}) {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   const [post, setPost] = useState()
@@ -90,7 +95,10 @@ export default function PostPage({ providers }) {
           </div>
         )}
       </div>
-      {/* widgets */}
+      <Widgets
+        trendingResults={trendingResults}
+        followResults={followResults}
+      />
       {isOpen && <Modal />}
       {isInputOpen && <InputModal />}
     </>
@@ -99,9 +107,17 @@ export default function PostPage({ providers }) {
 
 export async function getServerSideProps() {
   const providers = await getProviders()
+  const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV').then(
+    (res) => res.json()
+  )
+  const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
+    (res) => res.json()
+  )
   return {
     props: {
       providers,
+      trendingResults,
+      followResults,
     },
   }
 }
