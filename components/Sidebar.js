@@ -65,7 +65,7 @@ function Sidebar({ postPage }) {
           />
         </div>
         <nav>
-          <ul className='fixed bottom-0 flex w-full max-w-[1265px] items-center justify-around xl:items-start xxs:sm:static xxs:sm:flex-col'>
+          <ul className='fixed bottom-0 flex w-full max-w-[1265px] items-center justify-around bg-black xl:items-start xxs:sm:static xxs:sm:flex-col'>
             {sidebarLinks.slice(0, 5).map(({ name, icon, activeIcon }) => (
               <SidebarLink
                 key={name}
