@@ -11,7 +11,7 @@ export default function Trending({ result }) {
           Trending with{' '}
           {result.tags &&
             result.tags.map((tag, index) => (
-              <span key={index} className='text-blue-base'>
+              <span key={index} className='text-blue-base hover:underline'>
                 {tag}
               </span>
             ))}
