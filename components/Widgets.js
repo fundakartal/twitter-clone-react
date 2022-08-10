@@ -46,7 +46,7 @@ export default function Widgets({ trendingResults, followResults }) {
           ref={searchModal}
           className='search-shadow z-10 mx-auto hidden min-h-[100px] rounded-lg text-center text-gray-light lg:w-[290px] xl:w-[350px]'
         >
-          {value !== '' ? (
+          {value.trim() !== '' ? (
             <div className='flex h-20 w-full cursor-pointer items-center px-6 text-white-base transition duration-300 ease-out hover:bg-gray-primary'>
               <div className='flex h-14 w-14 items-center'>
                 <SearchIcon className='h-7' />
