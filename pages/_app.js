@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps, session }) {
           <title>Latest Tweets / Twitter</title>
           <link rel='icon' href='/favicon.ico' />
         </Head>
-        <main className='mx-auto flex min-h-screen max-w-[1265px] pb-3'>
+        <main className='mx-auto flex min-h-screen max-w-[1265px]'>
           <Component {...pageProps} />
         </main>
       </RecoilRoot>

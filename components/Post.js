@@ -30,7 +30,7 @@ export default function Post({ id, post, postPage }) {
 
   return (
     <div
-      className={`cursor-pointer ${
+      className={`cursor-pointer last:border-none ${
         !postPage && 'border-b border-gray-dark'
       } px-4 pt-3 transition duration-200 ease-in-out hover:bg-[#080808]`}
       onClick={() => router.push(`/${id}`)}

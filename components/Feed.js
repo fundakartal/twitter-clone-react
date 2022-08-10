@@ -21,8 +21,8 @@ export default function Feed() {
   )
 
   return (
-    <div className='max-w-[600px] flex-grow border-gray-dark text-white-base sm:border-l sm:border-r xxs:sm:ml-[88px] xxs:xl:ml-[275px]'>
-      <div className='bg-[rgba(0, 0, 0, 0.65)] sticky top-0 z-50 flex cursor-pointer items-center px-4 py-3 text-white-base backdrop-blur-md'>
+    <div className='max-w-[600px] flex-grow border-gray-dark pb-[60px] text-white-base sm:border-l sm:border-r xxs:sm:ml-[88px] xxs:sm:pb-0 xxs:xl:ml-[275px]'>
+      <div className='bg-[rgba(0, 0, 0, 0.65)] sticky top-0 z-50 flex cursor-pointer items-center px-4 py-2 text-white-base backdrop-blur-md'>
         <UserImg className='mr-5 h-8 w-8 xxs:sm:hidden' />
         <h2 className='overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold sm:text-xl'>
           Latest Tweets
@@ -32,11 +32,9 @@ export default function Feed() {
         </div>
       </div>
       <Input />
-      <div className='pb-72'>
-        {posts.map((post) => (
-          <Post key={post.id} id={post.id} post={post.data()} />
-        ))}
-      </div>
+      {posts.map((post) => (
+        <Post key={post.id} id={post.id} post={post.data()} />
+      ))}
     </div>
   )
 }

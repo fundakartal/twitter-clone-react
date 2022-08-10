@@ -20,8 +20,8 @@ export default function Widgets({ trendingResults, followResults }) {
   }
 
   return (
-    <aside className='ml-8 hidden space-y-5 py-1.5 lg:inline lg:w-[290px] xl:w-[350px]'>
-      <div className='sticky top-0 z-50 bg-black'>
+    <aside className='ml-8 hidden py-1 lg:inline lg:w-[290px] xl:w-[350px]'>
+      <div className='sticky top-0 z-50 bg-black py-1'>
         <div className='relative flex items-center rounded-full bg-gray-base p-3'>
           <SearchIcon className='z-50 h-5 text-gray-light' />
           <input
@@ -60,7 +60,7 @@ export default function Widgets({ trendingResults, followResults }) {
           )}
         </div>
       </div>
-      <div className='overflow-hidden rounded-xl bg-gray-primary text-white-base lg:w-[290px] xl:w-[350px]'>
+      <div className='mt-4 overflow-hidden rounded-xl bg-gray-primary text-white-base lg:w-[290px] xl:w-[350px]'>
         <h4 className='px-4 py-3 text-xl font-bold'>What&apos;s happening</h4>
         {trendingResults.map((result, index) => (
           <Trending key={index} result={result} />
@@ -69,8 +69,7 @@ export default function Widgets({ trendingResults, followResults }) {
           Show more
         </button>
       </div>
-
-      <div className='overflow-hidden rounded-xl bg-gray-primary text-white-base lg:w-[290px] xl:w-[350px]'>
+      <div className='mt-5 overflow-hidden rounded-xl bg-gray-primary text-white-base lg:w-[290px] xl:w-[350px]'>
         <h4 className='px-4 py-3 text-xl font-bold'>Who to follow</h4>
         {followResults.map((result, index) => (
           <div

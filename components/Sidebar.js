@@ -103,7 +103,9 @@ function Sidebar({ postPage }) {
           <span className='hidden xl:inline-flex'>Tweet</span>
         </button>
       </div>
-      <UserBox />
+      <div className='pb-3'>
+        <UserBox />
+      </div>
     </div>
   )
 }
