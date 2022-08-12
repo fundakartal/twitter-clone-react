@@ -44,6 +44,12 @@ export default function Input({ Modal, InputModal, postPage, post }) {
   const iconSetRef = useRef()
   const tweetBtnRef = useRef()
   const replyingToRef = useRef()
+  const textAreaRef = useRef()
+
+  useEffect(() => {
+    textAreaRef.current.style.height = 'auto'
+    textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px'
+  }, [input, comment])
 
   const focusInput = () => {
     iconSetRef.current.classList.remove('hidden')
@@ -139,7 +145,7 @@ export default function Input({ Modal, InputModal, postPage, post }) {
 
     if (
       e.target.files[0] &&
-      e.target.files[0].type.includes('image') && 
+      e.target.files[0].type.includes('image') &&
       e.target.files[0].size < 5 * 1024 * 1024
     ) {
       reader.onload = (e) => {
@@ -187,28 +193,30 @@ export default function Input({ Modal, InputModal, postPage, post }) {
             {Modal ? (
               <textarea
                 value={comment}
+                ref={textAreaRef}
+                rows={1}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder='Tweet your reply'
                 onFocus={() => {
                   postPage && focusInput()
                 }}
-                className={`min-h-[50px] ${Modal && 'py-3'} ${
+                className={`min-h-[50px] scrollbar-hide ${Modal && 'py-3'} ${
                   !postPage && 'w-full'
                 } ${
-                  postPage && 'h-12 flex-grow py-1.5 scrollbar-hide focus:h-20'
+                  postPage && 'h-12 flex-grow py-1.5 focus:h-20'
                 } bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none`}
               />
             ) : (
               <textarea
                 value={input}
+                ref={textAreaRef}
+                rows={1}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="What's happening?"
-                rows='2'
-                className={`min-h-[50px] ${
-                  InputModal && 'h-28'
-                } w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none`}
+                className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none scrollbar-hide'
               />
             )}
+            
             {postPage && (
               <button
                 disabled={!comment.trim() && !selectedImage}
@@ -331,23 +339,136 @@ export default function Input({ Modal, InputModal, postPage, post }) {
                   </div>
                 )}
               </div>
-              {Modal ? (
-                <button
-                  disabled={!comment.trim() && !selectedImage}
-                  className='tweetBtn'
-                  onClick={sendComment}
-                >
-                  Reply
-                </button>
-              ) : (
-                <button
-                  disabled={!input.trim() && !selectedImage}
-                  className='tweetBtn'
-                  onClick={sendPost}
-                >
-                  Tweet
-                </button>
-              )}
+              <div className='flex items-center gap-5'>
+                {Modal ? (
+                  <div
+                    className={`${
+                      comment.length ? 'inline' : 'hidden'
+                    } relative h-[30px] w-[30px] rounded-full`}
+                  >
+                    <svg
+                      className={`relative h-full w-full ${
+                        comment.length >= 290 && 'hidden'
+                      }`}
+                    >
+                      <circle
+                        className={`${
+                          comment.length >= 280 && 'stroke-red-base'
+                        } h-full w-full fill-transparent stroke-gray-light stroke-[6%]`}
+                        cx='50%'
+                        cy='50%'
+                        r='46%'
+                        strokeLinecap='round'
+                      ></circle>
+                      <circle
+                        className={`h-full w-full fill-transparent stroke-[6%] ${
+                          comment.length <= 259
+                            ? 'stroke-blue-base'
+                            : comment.length >= 259 && comment.length < 280
+                            ? 'stroke-yellow-500'
+                            : 'stroke-red-base'
+                        }`}
+                        cx='50%'
+                        cy='50%'
+                        r='46%'
+                        strokeLinecap='round'
+                        strokeDasharray='calc(30 * 0.46 * 2 * 3.1416)'
+                        strokeDashoffset={`calc(30 * 0.46 * 2 * 3.1416 - (30 * 0.46 * 2 * 3.1416 * ${
+                          comment.length * (100 / 280)
+                        }) / 100)`}
+                      ></circle>
+                    </svg>
+                    <div
+                      className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
+                        comment.length <= 259 ? 'hidden' : 'inline'
+                      }`}
+                    >
+                      <h2
+                        className={`text-sm font-bold text-gray-light ${
+                          comment.length >= 280 && 'text-red-base'
+                        }`}
+                      >
+                        {280 - comment.length}
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className={`${
+                      input.length ? 'inline' : 'hidden'
+                    } relative h-[30px] w-[30px] rounded-full`}
+                  >
+                    <svg
+                      className={`relative h-full w-full ${
+                        input.length >= 290 && 'hidden'
+                      }`}
+                    >
+                      <circle
+                        className={`${
+                          input.length >= 280 && 'stroke-red-base'
+                        } h-full w-full fill-transparent stroke-gray-light stroke-[6%]`}
+                        cx='50%'
+                        cy='50%'
+                        r='46%'
+                        strokeLinecap='round'
+                      ></circle>
+                      <circle
+                        className={`h-full w-full fill-transparent stroke-[6%] ${
+                          input.length <= 259
+                            ? 'stroke-blue-base'
+                            : input.length >= 259 && input.length < 280
+                            ? 'stroke-yellow-500'
+                            : 'stroke-red-base'
+                        }`}
+                        cx='50%'
+                        cy='50%'
+                        r='46%'
+                        strokeLinecap='round'
+                        strokeDasharray='calc(30 * 0.46 * 2 * 3.1416)'
+                        strokeDashoffset={`calc(30 * 0.46 * 2 * 3.1416 - (30 * 0.46 * 2 * 3.1416 * ${
+                          input.length * (100 / 280)
+                        }) / 100)`}
+                      ></circle>
+                    </svg>
+                    <div
+                      className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${
+                        input.length <= 259 ? 'hidden' : 'inline'
+                      }`}
+                    >
+                      <h2
+                        className={`text-sm font-bold text-gray-light ${
+                          input.length >= 280 && 'text-red-base'
+                        }`}
+                      >
+                        {280 - input.length}
+                      </h2>
+                    </div>
+                  </div>
+                )}
+
+                {Modal ? (
+                  <button
+                    disabled={
+                      (!comment.trim() && !selectedImage) ||
+                      comment.length > 280
+                    }
+                    className='tweetBtn'
+                    onClick={sendComment}
+                  >
+                    Reply
+                  </button>
+                ) : (
+                  <button
+                    disabled={
+                      (!input.trim() && !selectedImage) || input.length > 280
+                    }
+                    className='tweetBtn'
+                    onClick={sendPost}
+                  >
+                    Tweet
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>

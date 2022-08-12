@@ -19,6 +19,9 @@ module.exports = {
           dark: 'rgb(47,51,54)',
           light: 'rgb(113,118,123)',
         },
+        red: {
+          base: 'rgb(138, 13, 32)',
+        },
       },
       screens: {
         sm: '500px',
