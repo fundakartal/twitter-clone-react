@@ -216,14 +216,9 @@ export default function Input({ Modal, InputModal, postPage, post }) {
                 className='min-h-[50px] w-full bg-transparent text-xl tracking-wide text-white-base placeholder-gray-light outline-none scrollbar-hide'
               />
             )}
-            
+
             {postPage && (
-              <button
-                disabled={!comment.trim() && !selectedImage}
-                className='tweetBtn'
-                onClick={sendComment}
-                ref={tweetBtnRef}
-              >
+              <button disabled className='tweetBtn' ref={tweetBtnRef}>
                 Reply
               </button>
             )}
@@ -446,7 +441,7 @@ export default function Input({ Modal, InputModal, postPage, post }) {
                   </div>
                 )}
 
-                {Modal ? (
+                {Modal || postPage ? (
                   <button
                     disabled={
                       (!comment.trim() && !selectedImage) ||
